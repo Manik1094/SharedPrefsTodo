@@ -10,9 +10,11 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button add_btn;
+    Button add_btn , clear_btn;
     TextView title_txt , priority_txt , id_txt;
     SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+
 
 
 
@@ -27,16 +29,22 @@ public class MainActivity extends AppCompatActivity {
         title_txt = findViewById(R.id.title_txt);
         priority_txt = findViewById(R.id.priority_txt);
         id_txt = findViewById(R.id.id_txt);
+        clear_btn = findViewById(R.id.clear_btn);
 
-
+        clear_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.clear();
+                editor.commit();
+                onStart();
+            }
+        });
 
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this , AddTodoActivity.class);
                 startActivity(intent);
-
-
             }
         });
     }
@@ -45,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         preferences = getApplicationContext().getSharedPreferences("TodoPrefs",MODE_PRIVATE);
+        editor = preferences.edit();
 
         retreiveData();
     }
