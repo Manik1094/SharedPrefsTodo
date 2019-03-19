@@ -1,6 +1,7 @@
 package com.example.helloworld.sharedprefs;
 
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +22,8 @@ public class AddTodoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_todo);
 
-        preferences = getApplicationContext().getSharedPreferences("TodoPrefs" , MODE_PRIVATE);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+      //  preferences = getApplicationContext().getSharedPreferences("TodoPrefs" , MODE_PRIVATE);
         editor = preferences.edit();
 
         title_et = findViewById(R.id.title_et);

@@ -2,6 +2,7 @@ package com.example.helloworld.sharedprefs;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,7 +37,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editor.clear();
                 editor.commit();
-                onStart();
+                preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                editor = preferences.edit();
+
+                retreiveData();
             }
         });
 
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        preferences = getApplicationContext().getSharedPreferences("TodoPrefs",MODE_PRIVATE);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = preferences.edit();
 
         retreiveData();
